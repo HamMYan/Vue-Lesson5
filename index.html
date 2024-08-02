@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 5</title>
+    <style>
+        .colorDiv {
+            width: 200px;
+            height: 200px;
+        }
+
+        .foods {
+            border: dashed black 1px;
+            width: 400px;
+            padding: 20px;
+        }
+
+        .foods>img {
+            float: right;
+            width: 55%;
+        }
+
+        li:hover {
+            cursor: pointer;
+            background-color: rgb(224, 224, 224);
+        }
+
+        .foods>ol {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .foods {
+            padding-left: 6px;
+            border-radius: 5px;
+            width: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Vue events</h1>
+        <hr>
+        <br>
+        <br>
+
+        <h3>Onclick</h3>
+        <hr><br>
+
+        <p>Count: {{count}}</p>
+
+        <button v-on:click="count++">Click</button>
+        <br><br>
+
+        <p>Change Background Theme</p>
+        <button v-on:click="darkTheme">Dark</button>
+        <br>
+        <br>
+        <button v-on:click="lightTheme">Light</button>
+        <hr><br>
+
+        <h3>Input event</h3>
+        <hr><br>
+
+        <input type="text" v-on:input="inpCount++">
+        <br>
+        <p>Input text count: {{inpCount}}</p>
+        <hr><br>
+
+        <h3>Mouse event</h3>
+        <hr><br>
+
+        <div class="colorDiv" v-on:mousemove="colorVal = Math.floor(Math.random()*360)"
+            v-bind:style="{backgroundColor:'hsl('+colorVal+',80%,80%)'}"></div>
+        <hr><br>
+
+        <h3>Click event</h3>
+        <hr><br>
+
+        <div class="foods">
+            <img v-bind:src="imgUrl">
+            <ol>
+                <li v-for="food in manyFoodsObj" @:click="imgUrl = food.url">
+                    {{food.name}}
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        function darkTheme() {
+            document.body.style.backgroundColor = 'black'
+            document.body.style.color = 'white'
+        }
+        function lightTheme() {
+            document.body.style.backgroundColor = 'white'
+            document.body.style.color = 'black'
+        }
+
+        const manyFoodsObj = [
+            { name: 'Burrito', url: 'https://www-w3schools-com.translate.goog/vue/img_burrito.svg' },
+            { name: 'Pzza', url: 'https://www.w3schools.com/vue/img_pizza.svg' },
+            { name: 'Cake', url: 'https://www-w3schools-com.translate.goog/vue/img_cake.svg' },
+        ]
+
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    count: 0,
+                    inpCount: 0,
+                    colorVal: 50,
+                    manyFoodsObj,
+                    imgUrl: 'https://www.w3schools.com/vue/img_pizza.svg',
+                    darkTheme,
+                    lightTheme,
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
